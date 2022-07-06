@@ -1,16 +1,16 @@
-import discord, json
+import discord, os, keep_alive
 from discord.ext import commands
 
-with open('config.json') as c:
-    config = json.load(c)
+activity = discord.Activity(type=discord.ActivityType.watching, name="femboys")
 
-token = config.get('token')
-status = config.get('status')
+client = commands.Bot(command_prefix='7', self_bot=True, activity=activity, status=discord.Status.dnd)
 
-bot = commands.Bot(self_bot=True, status=discord.Status.{status})
+client.remove_command('help')
 
-@bot.event
+@client.event
 async def on_ready():
-    print(f'Running as {bot.user.name}#{bot.user.discriminator}')
+  print("Working")
 
-bot.run(token)
+keep_alive.keep_alive()
+
+client.run(os.getenv("TOKEN"), bot=False)
